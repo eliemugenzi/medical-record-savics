@@ -1,4 +1,5 @@
 import { User, Address, MedicalRecord } from '../database/models';
+import { Op } from 'sequelize';
 
 class MedicalRecordController{
   static async createOne(req,res){
@@ -38,7 +39,49 @@ class MedicalRecordController{
   }
 
   static async getMedicalRecords(req, res){
-      const records=await MedicalRecord.findAll({
+      const {query: {age}}=req;
+
+      let records;
+
+      if(age){
+          if(age==='under_18'){
+             records=await MedicalRecord.findAll({
+                 include: [
+                     {
+                         model: User,
+                         as: 'user',
+                         where: {
+                             age: {
+                                 [Op.lt]: 18,
+                             }
+                         }
+                     }
+                 ]
+             })
+
+             console.log(records[0].user.dataValues);
+          }
+          else{
+              records=await MedicalRecord.findAll({
+                  include: [
+                      {
+                          model: User,
+                          as: 'user',
+                          where: {
+                              age: {
+                                  [Op.gte]: 18,
+                              }
+                          }
+                      }
+                  ]
+              })
+          }
+
+          return res.render('pages/medical_records', {
+            records
+        });
+      }
+     records=await MedicalRecord.findAll({
           include: [
               {
                   model: User,

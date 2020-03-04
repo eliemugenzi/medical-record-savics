@@ -23,19 +23,36 @@
         .center{
             text-align: center;
         }
+
+        form{
+            margin: auto 10%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2 class="center">Medical records</h2>
         <a href="/">Go Back</a>
+
+        <form action="/records" method="GET">
+            <label for="">Filter by age</label>
+            <select name="age" id="age">
+                <option value="under_18">Under 18</option>
+                <option value="over_18">18 +</option>
+            </select>
+
+            <input type="submit" value="Filter">
+        </form>
     <ul>
         <%if(records.length!==0){ %>
             <% records.forEach(record=>{ %>
 
                 <li>
                     <h2>Record No. <%=record.id%></h2>
-                    <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
+                    <div class="user">
+                        <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
+                        <p>Age: <%=record.user.age%></p>
+                    </div>
     
                     <h6>Record</h6>
     
