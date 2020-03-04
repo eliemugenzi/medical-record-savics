@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savics</title>
+
+    <style>
+        .user-info{
+            display: block;
+            margin: 20px 10%;
+        }
+
+        .center{
+            text-align: center;
+        }
+
+        label{
+            position: relative;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to MediaRecord</h1>
+
+    <form action="/" method="POST">
+        <div class="user-info">
+            <h2 class="center">User Information</h2>
+            <div class="field">
+                <label for="First Name">First Name</label>
+                <input type="text" placeholder="First Name" name="first_name">
+            </div>
+
+            <div class="field">
+                <label for="last name">Last Name</label>
+              <input type="text" placeholder="Last Name" name="last_name">
+            </div>
+
+            <div class="field">
+                <label for="Email">Email Address</label>
+                <input type="email" placeholder="Email Address" name="email">
+            </div>
+           
+           <div class="field">
+              <label for="age">Age</label>
+              <input type="number" name="age" placeholder="Age">
+           </div>
+
+           <div class="field">
+               <label for="gender">Gender</label>
+               <select name="gender" id="">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+           </div>
+            
+           <div class="field">
+               <label for="">City</label>
+               <input type="text" name="city" placeholder="City">
+           </div>
+
+           <div class="field">
+               <label for="">State</label>
+               <input type="text" name="state" placeholder="State">
+           </div>
+        </div>
+
+        <div class="medical-info">
+            <h2 class="center">Medica record Info</h2>
+            <div class="field">
+                <label for="">Title</label>
+                <input type="text" name="record_title" placeholder="Title">
+            </div>
+            <div class="field">
+                <label for="">Description</label>
+                <input type="text" name="record_description" placeholder="Description">
+
+            </div>
+            <input type="checkbox" name="has_coronavirus" id="" placeholder="Has CoronaVirus">
+        </div>
+        <input type="submit" value="Add a record">
+    </form>
+</body>
+</html>
