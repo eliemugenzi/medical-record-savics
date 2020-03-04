@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savics</title>
+</head>
+<body>
+    <h2 class="center">Medical records</h2>
+    <ul>
+        <% records.forEach(record=>{ %>
+
+            <li>
+                <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
+
+                <h6>Record</h6>
+
+                <p>Title: <%=record.title%></p>
+                <p>Description: <%=record.description%></p>
+                <% if(record.has_coronavirus){ %>
+                   <i>Has Coronavirus</i>
+               <% } %>
+
+            </li>
+
+       <% }) %>
+    </ul>
+</body>
+</html>

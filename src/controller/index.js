@@ -1,9 +1,9 @@
-import { User, Address } from '../database/models';
+import { User, Address, MedicalRecord } from '../database/models';
 
 class MedicalRecordController{
   static async createOne(req,res){
      const {body}=req;
-     const {first_name, last_name, email, age, gender, city, state, record_title, record_description, has_coronavirus}=req;
+     const {first_name, last_name, email, age, gender, city, state, record_title, record_description, has_coronavirus}=body;
 
      const user=await User.create({
         first_name,
@@ -26,7 +26,7 @@ class MedicalRecordController{
          has_coronavirus
      });
 
-     return res.render('../views/index', {
+     return res.render('pages/index', {
          medicalRecord,
          user,
      });
@@ -36,6 +36,22 @@ class MedicalRecordController{
   static async getAll(req, res){
       return res.render('pages/index');
   }
+
+  static async getMedicalRecords(req, res){
+      const records=await MedicalRecord.findAll({
+          include: [
+              {
+                  model: User,
+                  as: 'user'
+              }
+          ]
+      });
+
+      return res.render('pages/medical_records', {
+          records
+      });
+  }
 }
+
 
 export default MedicalRecordController;
