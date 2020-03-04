@@ -4,26 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savics</title>
+
+    <style>
+        ul{
+            list-style: none;
+            box-sizing: border-box;
+            margin: auto 10%;
+            box-shadow: 3px 5px 5px -1px rgba(0,0,0,0.41);
+            padding: 10px;
+        }
+
+        body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 14px;
+            margin: auto 10%;
+        }
+
+        .center{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h2 class="center">Medical records</h2>
+    <div class="container">
+        <h2 class="center">Medical records</h2>
+        <a href="/">Go Back</a>
     <ul>
-        <% records.forEach(record=>{ %>
+        <%if(records.length!==0){ %>
+            <% records.forEach(record=>{ %>
 
-            <li>
-                <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
+                <li>
+                    <h2>Record No. <%=record.id%></h2>
+                    <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
+    
+                    <h6>Record</h6>
+    
+                    <p>Title: <%=record.title%></p>
+                    <p>Description: <%=record.description%></p>
+                    <% if(record.has_coronavirus){ %>
+                       <strong>Exception:</strong> <i>Has Coronavirus</i>
+                   <% } %>
+    
+                </li>
+    
+           <% }) %>
+        <%} else { %>
 
-                <h6>Record</h6>
+            <p>No records yet</p>
 
-                <p>Title: <%=record.title%></p>
-                <p>Description: <%=record.description%></p>
-                <% if(record.has_coronavirus){ %>
-                   <i>Has Coronavirus</i>
-               <% } %>
-
-            </li>
-
-       <% }) %>
+       <% }%>
+        
     </ul>
+    </div>
 </body>
 </html>
