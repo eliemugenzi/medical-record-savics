@@ -17,6 +17,13 @@ $ npm install
 
 ```
 
+- Create database tables using the following command that runs DB migrations:
+
+```bash
+$ npm run db:migrate
+
+```
+
 - Run the development server using
 
 ```bash
