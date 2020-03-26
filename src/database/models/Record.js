@@ -16,6 +16,10 @@ const recordSchema=new Schema({
     has_coronavirus: {
         type: Boolean,
         default: false,
+    },
+    created_at: {
+        type: Date,
+        default: Date.now(),
     }
 });
 

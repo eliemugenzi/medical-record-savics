@@ -2,7 +2,7 @@ version: '3.7'
 
 services: 
     app:
-        container_name: savics_datatocare
+        container_name: savics_medical_record
         restart: always
         build: .
         ports:
@@ -11,16 +11,20 @@ services:
             - db
         depends_on: 
             - db
+        environment: 
+            - MONGO_URL=mongodb://db/savics
     db:
-        container_name: postgres
-        image: postgres
+        container_name: mongo
+        image: mongo:latest
         ports: 
-            - '3838:5432'
+            - "12345:27017"
 
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=savics
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=rootpassword
 
         volumes: 
-            - ./pgdata:/var/lib/postgresql/data
+            - mongodb_data_container:/data/db
+
+volumes: 
+     mongodb_data_container:

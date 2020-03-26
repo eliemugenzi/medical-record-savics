@@ -22,7 +22,11 @@ const userSchema=new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Record',
         }
-    ]
+    ],
+    created_at: {
+        type: Date,
+        default: Date.now(),
+    }
 });
 
 const User = mongoose.model('User', userSchema);

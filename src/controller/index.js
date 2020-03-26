@@ -27,11 +27,8 @@ class MedicalRecordController{
          });
     
          await medicalRecord.save();
-    
-         return res.render('pages/index', {
-             medicalRecord,
-             user,
-         });
+
+         return res.redirect('/records');
      } catch(err){
          console.log(err);
      }
@@ -51,14 +48,15 @@ class MedicalRecordController{
       if(age){
           if(age==='under_18'){
             records=await Record.find({
-            })
+            }).sort({created_at: -1})
             .populate('user').exec();
 
             records = records.filter(record=>record.user.age < 18);
           }
           else{
             records=await Record.find({
-            }).populate('user').exec();
+            }).sort({created_at: -1})
+            .populate('user').exec();
 
             records = records.filter(record=>record.user.age >= 18);
           }
@@ -67,7 +65,9 @@ class MedicalRecordController{
             records
         });
       }
-     records= await Record.find({}).populate('user').exec();
+     records= await Record.find({})
+     .sort({created_at: -1})
+     .populate('user').exec();
 
       return res.render('pages/medical_records', {
           records

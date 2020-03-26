@@ -1,0 +1,50 @@
+.user-info, .medical-info{
+    display: block;
+    margin: 20px 10%;
+}
+
+.user-info{
+    float: left;
+    margin-right: 50px;
+}
+
+.medical-info{
+    margin-top: 50px;
+}
+
+.center{
+    text-align: center;
+}
+
+label{
+    position: relative;
+    width: 100%;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    margin: auto 10%;
+}
+
+input[type=text], input[type=email], input[type=number], select{
+    width: 200px;
+    height: 25px;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+}
+
+input[type=submit]{
+    padding: .5rem 2rem;
+    background: black;
+    color: white;
+    outline: none;
+    border: none;
+    margin: auto;
+}
