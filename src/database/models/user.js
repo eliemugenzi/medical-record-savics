@@ -1,14 +1,30 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    address_id: DataTypes.INTEGER
-  }, {});
-  User.associate = function(models) {
-    // associations can be defined here
-  };
-  return User;
-};
+import mongoose, { Schema } from 'mongoose';
+
+const userSchema=new Schema({
+    first_name: {
+        type: String,
+        required: true,
+    },
+    last_name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    age: {
+        type: Number,
+        required: true,
+    },
+    records: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Record',
+        }
+    ]
+});
+
+const User = mongoose.model('User', userSchema);
+
+export default User;

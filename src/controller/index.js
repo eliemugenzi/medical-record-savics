@@ -1,36 +1,41 @@
-import { User, Address, MedicalRecord } from '../database/models';
-import { Op } from 'sequelize';
+
+import User from '../database/models/User';
+import Record from '../database/models/Record';
 
 class MedicalRecordController{
   static async createOne(req,res){
-     const {body}=req;
-     const {first_name, last_name, email, age, gender, city, state, record_title, record_description, has_coronavirus}=body;
+     const { body } = req;
 
-     const user=await User.create({
-        first_name,
-        last_name,
-        email,
-        age,
-        gender,
-    });
+     try{
+        const user = new User({
+            first_name: body.first_name,
+            last_name: body.last_name,
+            email: body.email,
+            age: parseInt(body.age, 10),
+            gender: body.gender,
+        });
+    
+        await user.save();
 
-     const address = await Address.create({
-        user_id: user.id,
-        city,
-        state,
-     });
-     
-     const medicalRecord=await MedicalRecord.create({
-         user_id: user.id,
-         title: record_title,
-         description: record_description,
-         has_coronavirus
-     });
+        console.log(body.has_coronavirus);
+         
+         const medicalRecord= new Record({
+             user: user._id,
+             title: body.record_title,
+             description: body.record_description,
+             has_coronavirus: body.has_coronavirus === 'on' ? true : false,
+         });
+    
+         await medicalRecord.save();
+    
+         return res.render('pages/index', {
+             medicalRecord,
+             user,
+         });
+     } catch(err){
+         console.log(err);
+     }
 
-     return res.render('pages/index', {
-         medicalRecord,
-         user,
-     });
      
   }
 
@@ -45,50 +50,24 @@ class MedicalRecordController{
 
       if(age){
           if(age==='under_18'){
-             records=await MedicalRecord.findAll({
-                 include: [
-                     {
-                         model: User,
-                         as: 'user',
-                         where: {
-                             age: {
-                                 [Op.lt]: 18,
-                             }
-                         }
-                     }
-                 ]
-             })
+            records=await Record.find({
+            })
+            .populate('user').exec();
 
-             console.log(records[0].user.dataValues);
+            records = records.filter(record=>record.user.age < 18);
           }
           else{
-              records=await MedicalRecord.findAll({
-                  include: [
-                      {
-                          model: User,
-                          as: 'user',
-                          where: {
-                              age: {
-                                  [Op.gte]: 18,
-                              }
-                          }
-                      }
-                  ]
-              })
+            records=await Record.find({
+            }).populate('user').exec();
+
+            records = records.filter(record=>record.user.age >= 18);
           }
 
           return res.render('pages/medical_records', {
             records
         });
       }
-     records=await MedicalRecord.findAll({
-          include: [
-              {
-                  model: User,
-                  as: 'user'
-              }
-          ]
-      });
+     records= await Record.find({}).populate('user').exec();
 
       return res.render('pages/medical_records', {
           records

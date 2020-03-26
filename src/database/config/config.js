@@ -1,23 +1,14 @@
-require('dotenv/config');
-module.exports = {
-  "development": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "logging": false
-  },
-  "test": {
-    "use_env_variable": "DATABASE_URL_TEST",
-    "dialect": "postgres",
-    "logging": false
-  },
-  "staging": {
-    "logging": false,
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
-  },
-  "production": {
-    "logging": false,
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
-  }
-}
+import mongoose from 'mongoose';
+import 'dotenv/config';
+
+const { MONGO_URL } = process.env;
+
+mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+
+const db=mongoose.connection;
+
+db.once('open', ()=>{
+  console.log('The application is connected to MongoDB');
+});
+
+db.on('error', console.error.bind(console, 'Database connection error'));

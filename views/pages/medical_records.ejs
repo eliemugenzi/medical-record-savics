@@ -45,10 +45,10 @@
         </form>
     <ul>
         <%if(records.length!==0){ %>
-            <% records.forEach(record=>{ %>
+            <% records.forEach((record, index)=>{ %>
 
                 <li>
-                    <h2>Record No. <%=record.id%></h2>
+                    <h2>Record No. <%=index+1%></h2>
                     <div class="user">
                         <h5>User: <%= record.user.first_name %> <%=record.user.last_name%></h5>
                         <p>Age: <%=record.user.age%></p>
