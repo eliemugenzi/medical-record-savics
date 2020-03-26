@@ -1,0 +1,30 @@
+version: '3.7'
+
+services: 
+    app:
+        container_name: savics_medical_record
+        restart: always
+        build: .
+        ports:
+            - '5000:3000'
+        links: 
+            - db
+        depends_on: 
+            - db
+        environment: 
+            - MONGO_URL=mongodb://db/savics
+    db:
+        container_name: mongo
+        image: mongo:latest
+        ports: 
+            - "12345:27017"
+
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+
+        volumes: 
+            - mongodb_data_container:/data/db
+
+volumes: 
+     mongodb_data_container:

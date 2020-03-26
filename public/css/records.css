@@ -1,0 +1,46 @@
+ul{
+    list-style: none;
+    box-sizing: border-box;
+    margin: 30px 10%;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);;
+    padding: 10px;
+    overflow: scroll;
+}
+
+ul li{
+    border: 1px solid #DDD;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    margin: auto 10%;
+}
+
+.center{
+    text-align: center;
+}
+
+form{
+    margin: auto 10%;
+}
+
+.corona-plus{
+    padding: 5px;
+    color: white;
+    background-color: red;
+    border-radius: 3px;
+}
+
+.user{
+    float: left;
+    margin-right: 100px;
+}
+
+
+.filter-button{
+    padding: .5 rem 3rem;
+}
