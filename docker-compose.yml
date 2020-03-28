@@ -13,6 +13,8 @@ services:
             - db
         environment: 
             - MONGO_URL=mongodb://db/savics
+
+        entrypoint: ["sh","init.sh"]
     db:
         container_name: mongo
         image: mongo:latest
@@ -25,6 +27,8 @@ services:
 
         volumes: 
             - mongodb_data_container:/data/db
+
+        restart: always
 
 volumes: 
      mongodb_data_container:

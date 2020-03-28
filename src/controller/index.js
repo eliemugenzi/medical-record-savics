@@ -16,8 +16,6 @@ class MedicalRecordController{
         });
     
         await user.save();
-
-        console.log(body.has_coronavirus);
          
          const medicalRecord= new Record({
              user: user._id,
